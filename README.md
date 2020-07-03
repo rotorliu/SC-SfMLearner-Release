@@ -8,9 +8,13 @@ This codebase implements the system described in the paper:
  >
  >**NeurIPS** 2019 [[PDF](http://papers.nips.cc/paper/8299-unsupervised-scale-consistent-depth-and-ego-motion-learning-from-monocular-video)] [[Project webpage](https://jwbian.net/sc-sfmlearner/)]
 
+## Point cloud visulization on KITTI (left) and real-world data (right)
+
+ [<img src="https://jwbian.net/wp-content/uploads/2020/06/77CXZX@H37PIWDBX0R7T.png" height="300">](https://www.youtube.com/watch?v=OkfK3wmMnpo)
+ [<img src="https://jwbian.net/wp-content/uploads/2020/06/UFIEB960XK6V82H2UN6P25.png" height="300">](https://youtu.be/ah6iuWudR5k)
 
 
-## Dense reconstruction (left) using the estimated depth map (bottom right)
+## Dense reconstruction (left) using the estimated depth (bottom right)
 
 [![reconstruction demo](https://jwbian.net/Data/reconstruction.png)](https://www.youtube.com/watch?v=i4wZr79_pD8)
 
@@ -35,10 +39,11 @@ This codebase implements the system described in the paper:
 
 
 ## Updates (Compared with NeurIPS version)
-Note that this is an updated and improved version, find the original version in 'Release / NeurIPS Version' for reproducing the results reported in our paper. Compared with NeurIPS version, we
+Note that this is an updated version, and you can find the original version in 'Release / NeurIPS Version' for reproducing the results reported in paper. Compared with NeurIPS version, we
 (1) Change networks by using Resnet18 and Resnet50 pretrained model (on ImageNet) for depth and pose encoders.
 (2) We add 'auto_mask' by Monodepth2 to remove stationary points.
 
+We add training and testing on NYUv2 indoor depth dataset. See [Unsupervised-Indoor-Depth](https://github.com/JiawangBian/Unsupervised-Indoor-Depth) for details.
 
 
 ## Preamble
@@ -55,7 +60,7 @@ pip3 install -r requirements.txt
 or install manually the following packages :
 
 ```
-torch >= 1.0.1
+torch >= 1.5.1
 imageio
 matplotlib
 scipy
@@ -63,20 +68,23 @@ argparse
 tensorboardX
 blessings
 progressbar2
-path.py
+path
 ```
 
 It is also advised to have python3 bindings for opencv for tensorboard visualizations
 
 
-## Preparing training data
+## Datasets
 
 See "scripts/run_prepare_data.sh".
 
-For [KITTI Raw dataset](http://www.cvlibs.net/datasets/kitti/raw_data.php), download the dataset using this [script](http://www.cvlibs.net/download.php?file=raw_data_downloader.zip) provided on the official website.
+    For KITTI Raw dataset, download the dataset using this script http://www.cvlibs.net/download.php?file=raw_data_downloader.zip) provided on the official website.
 
-For [KITTI Odometry dataset](http://www.cvlibs.net/datasets/kitti/eval_odometry.php) download the dataset with color images.
+    For KITTI Odometry dataset, download the dataset with color images.
 
+Or you can download our pre-processed dataset from the following link
+
+[kitti_256 (for kitti raw)](https://1drv.ms/u/s!AiV6XqkxJHE2g1zyXt4mCKNbpdiw?e=ZJAhIl) | [kitti_vo_256 (for kitti odom)](https://1drv.ms/u/s!AiV6XqkxJHE2k3YRX5Z8c_i7U5x7?e=ogw0c7) | [kitti_depth_test (eigen split)](https://1drv.ms/u/s!AiV6XqkxJHE2kz5Zy7jWZd2GyMR2?e=kBD4lb) | [kitti_vo_test (seqs 09-10)](https://1drv.ms/u/s!AiV6XqkxJHE2k0BSVZE-AJNvye9f?e=ztiSWp)
 
 
 ## Training
@@ -149,4 +157,6 @@ To evaluate the [NeurIPS models](https://1drv.ms/u/s!AiV6XqkxJHE2kxSHVMYvo7DmGqN
  * [DF-VO](https://github.com/Huangying-Zhan/DF-VO) (ICRA 2020, use scale-consistent depth with optical flow for more accurate visual odometry)
  
  * [Kitti-Odom-Eval-Python](https://github.com/Huangying-Zhan/kitti-odom-eval) (python code for kitti odometry evaluation)
+ 
+ * [Unsupervised-Indoor-Depth](https://github.com/JiawangBian/Unsupervised-Indoor-Depth) (Using SC-SfMLearner in NYUv2 dataset)
  
