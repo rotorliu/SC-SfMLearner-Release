@@ -1,7 +1,8 @@
 import torch
 
 from imageio import imread, imsave
-from scipy.misc import imresize
+# from scipy.misc import imresize
+from PIL import Image
 import numpy as np
 from path import Path
 import argparse
@@ -60,10 +61,12 @@ def main():
 
         h, w, _ = img.shape
         if (not args.no_resize) and (h != args.img_height or w != args.img_width):
-            img = imresize(img, (args.img_height, args.img_width)).astype(np.float32)
+            # img = imresize(img, (args.img_height, args.img_width)).astype(np.float32)
+            img = np.array(Image.fromarray(np.uint8(img)).resize((args.img_width, args.img_height))).astype(np.float32)
         img = np.transpose(img, (2, 0, 1))
 
         tensor_img = torch.from_numpy(img).unsqueeze(0)
+
         tensor_img = ((tensor_img/255 - 0.45)/0.225).to(device)
 
         output = disp_net(tensor_img)[0]
@@ -76,7 +79,7 @@ def main():
             imsave(output_dir/'{}_disp{}'.format(file_name, file_ext), np.transpose(disp, (1, 2, 0)))
         if args.output_depth:
             depth = 1/output
-            depth = (255*tensor2array(depth, max_value=10, colormap='rainbow')).astype(np.uint8)
+            depth = (255*tensor2array(depth, max_value=5, colormap='gray')).astype(np.uint8)
             imsave(output_dir/'{}_depth{}'.format(file_name, file_ext), np.transpose(depth, (1, 2, 0)))
 
 
