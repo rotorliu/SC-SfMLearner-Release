@@ -36,7 +36,8 @@ def opencv_rainbow(resolution=1000):
 
 COLORMAPS = {'rainbow': opencv_rainbow(),
              'magma': high_res_colormap(cm.get_cmap('magma')),
-             'bone': cm.get_cmap('bone', 10000)}
+             'bone': cm.get_cmap('bone', 10000),
+             'gray': cm.get_cmap('gray', 10000)}
 
 
 def tensor2array(tensor, max_value=None, colormap='rainbow'):
